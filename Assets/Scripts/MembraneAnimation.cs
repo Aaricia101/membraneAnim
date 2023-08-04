@@ -36,7 +36,7 @@ public class MembraneAnimation : MonoBehaviour
             timePassed += Time.deltaTime; 
         }
 
-        if (timePassed >= 0.5f)
+        if (timePassed >= 0.4f)
         {
             followParticule = false;
             
