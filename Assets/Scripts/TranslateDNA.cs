@@ -8,6 +8,8 @@ public class TranslateDNA : AbstractAnimationAction
     [SerializeField] private GameObject dnaObject;
     
     [SerializeField] private float speed;
+    
+    //variable used for going backward
     [SerializeField] private bool isBackwards;
 
     [SerializeField] private float startPosition;
@@ -18,15 +20,13 @@ public class TranslateDNA : AbstractAnimationAction
     [SerializeField] private Vector3 nextPosition = Vector3.zero;
     
     [SerializeField] private GameObject nextPositionUsingObject;
-
-    [SerializeField] private Rigidbody rbOfObject;
+    
 
     // Start is called before the first frame update
 
     public void Start()
     {
         
-        rbOfObject = dnaObject.GetComponent<Rigidbody>();
     }
 
     public override void execute(float speedMultiplier, bool isBackward)
@@ -40,20 +40,20 @@ public class TranslateDNA : AbstractAnimationAction
         
        
 
+        //using object
         if (nextPosition == new Vector3(0,0,0))
         {
             dnaObject.transform.position = Vector3.MoveTowards(dnaObject.transform.position, nextPositionUsingObject.transform.position, speed);
-            //rbOfObject.MovePosition(Vector3.MoveTowards(transform.position, nextPositionUsingObject.transform.position, speed));
 
             if (dnaObject.transform.position == nextPositionUsingObject.transform.position)
             {
                 setAnimationHasEnded(true);
             }
         }
+        //using a position
         else
         {
             dnaObject.transform.position = Vector3.MoveTowards(dnaObject.transform.position, nextPosition, speed);
-            //rbOfObject.MovePosition(Vector3.MoveTowards(transform.position, nextPosition, speed));
 
             if (dnaObject.transform.position == nextPosition)
             {

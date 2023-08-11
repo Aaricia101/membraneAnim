@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class MembraneAnimation : MonoBehaviour
 {
+    
+    //this script moves some objects on the membrane to make it seems like the membrane is wrapping around the particule
 
     [SerializeField] private Vector3 originalPosition;
     [SerializeField] private Vector3 currentPosition;
@@ -31,6 +33,8 @@ public class MembraneAnimation : MonoBehaviour
     {
         currentPosition = transform.position;
         
+        //here when it reaches a certain time, the moved membrane object will automatically go back to its initial position
+        
         if (hasCollided)
         {
             timePassed += Time.deltaTime; 
@@ -46,28 +50,14 @@ public class MembraneAnimation : MonoBehaviour
         if (!followParticule)
         {
             transform.position = Vector3.MoveTowards(transform.position, originalPosition, 0.5f); 
-            //rbOfObject.MovePosition(Vector3.MoveTowards(transform.position, originalPosition, 0.5f));
+
         }
 
-        // if (Math.Round(transform.position.y) == Math.Round(originalPosition.y))
-        // {
-        //     followParticule = true;
-        // }
-
-        // if (timePassed >= 1f)
-        // {
-        //     followParticule = false;
-        //     transform.position = Vector3.MoveTowards(transform.position, originalPosition, 0.5f); 
-        // }
-
-        
-        
-        
-        
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        //when the particule triggers the membrane some particule of the membrane wall will move slightly forwards.
         
         if (other.gameObject.CompareTag("FullParticule") && followParticule)
         {

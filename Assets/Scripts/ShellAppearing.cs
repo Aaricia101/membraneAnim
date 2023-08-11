@@ -11,7 +11,8 @@ public class ShellAppearing : MonoBehaviour
     [SerializeField] private List<GameObject> objectToBeDesactivated;
     
 
-    // Start is called before the first frame update
+    // this script is added to every single objects of the white outer shell. The purpose is to enable (make them visible) each object of the white outer shell. 
+    //In addition "Phospholipid.305" is one of the last object to pass through so, after it passes through, the orange inside particule will disable itself to enhance performance.
     void Start()
     {
         shellMesh = gameObject.GetComponent<MeshRenderer>();
@@ -45,26 +46,6 @@ public class ShellAppearing : MonoBehaviour
         }
     }
 
-
-    private void OnTriggerEnter(Collider other)
-    {
-
-        /*if (other.gameObject.name == "OuterShellTrigger")
-        {
-            if (gameObject.name == "Phospholipid.741")
-            {
-
-                foreach (var a in objectToBeDesactivated)
-                {
-                    a.SetActive(false);
-                }
-            
-            }
-            shellMesh.enabled = true;
-        }*/
-
-        
-        
-    }
+    
     
 }

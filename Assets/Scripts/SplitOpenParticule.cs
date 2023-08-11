@@ -5,6 +5,8 @@ using UnityEngine;
 public class SplitOpenParticule : AbstractAnimationAction
 {
 
+    //this script take a list of top shells and will move them up one by one and disable them once they reach a certain position
+    //In addition it also activates the center orange layer which was previously disabled to enhance performance
     [SerializeField] private GameObject topOuterLayer;
     
     [SerializeField] private GameObject bottomParticuleLayer;
@@ -21,15 +23,20 @@ public class SplitOpenParticule : AbstractAnimationAction
     
     [SerializeField] private float speed;
 
+    [SerializeField] private int objectListIndex;
+
     [SerializeField] private bool activateAll;
 
-    
+    [SerializeField] private List<GameObject> objectsToMoveUp;
+
+
     // Start is called before the first frame update
     void Start()
     {
         
         YPosition = topOuterLayer.transform.position.y;
         activateAll = false;
+        objectListIndex = 0;
 
 
 
@@ -42,14 +49,41 @@ public class SplitOpenParticule : AbstractAnimationAction
 
         if (activateAll == false)
         {
+
+            foreach (var ob in objectsToMoveUp)
+            {
+                ob.SetActive(true);
+            }
             topParticuleLayer.SetActive(true);
             topInsideParticuleLayer.SetActive(true);
             bottomParticuleLayer.SetActive(true);
             bottomInsideParticuleLayer.SetActive(true);
             activateAll = true;
         }
- 
         speed = 0.35f;
+        speed *=  speedMultiplier;
+        topOuterLayerPosition = objectsToMoveUp[objectListIndex].transform.position;
+        
+        //moving the top shell
+        objectsToMoveUp[objectListIndex].transform.position = Vector3.MoveTowards(topOuterLayerPosition, new Vector3(topOuterLayerPosition.x, YPosition+45f, topOuterLayerPosition.z), speed);
+
+        //if the shell's position surpasses 15 it will disable and the code will move on to the next shell to move.
+        if (objectsToMoveUp[objectListIndex].transform.position.y > 15)
+        {
+            objectsToMoveUp[objectListIndex].SetActive(false);
+            objectListIndex++;
+        }
+
+        //ending the animation 
+        if (objectListIndex == objectsToMoveUp.Count)
+        {
+            setAnimationHasEnded(true);
+        }
+       
+        
+        //same code but different logic
+ 
+        /*speed = 0.35f;
         speed *=  speedMultiplier;
         topOuterLayerPosition = topOuterLayer.transform.position;
 
@@ -91,7 +125,7 @@ public class SplitOpenParticule : AbstractAnimationAction
             
             }
 
-        }
+        }*/
         
  
         

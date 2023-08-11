@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class ActivateOuterShell : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // this script is put on object 'OuterShelltrigger'. Initially the outer white shell is disabled and once the particule touches this the outershell is activated.
+    // Ps.: Even though the white outer shell is activated it is NOT enabled so it's invisible for now
     [SerializeField] private GameObject GameObjectToActivate;
     void Start()
     {
